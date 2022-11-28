@@ -204,13 +204,13 @@ for cfg in x:
     y[cfg] = [results["eval_avg_returns"][0]] +\
                             [np.amax(results["eval_avg_returns"][:b]) for b in range(1, init_budget)]
     budgets[cfg] = [init_budget]
-    if results["eval_avg_returns"][-1] > incumbent:
-        incumbent = results["eval_avg_returns"][-1]
+    if results["eval_avg_returns"][init_budget-1] > incumbent:
+        incumbent = results["eval_avg_returns"][init_budget-1]
         inc_x = cfg
         inc_budget = init_budget
 
     budget = init_budget
-    run_data = {"incumbent": results["eval_avg_returns"][-1], "configuraton": cfg, "budget": init_budget,
+    run_data = {"incumbent": results["eval_avg_returns"][init_budget-1], "configuraton": cfg, "budget": init_budget,
                 "wallclock_time_search": time.time() - start_time,
                 "wallclock_time_eval": results["eval_timestamps"][inc_budget-1], "eval_timesteps": results["eval_timesteps"][inc_budget-1],
                 "full_wallclock_time_eval": results["eval_timestamps"][-1], "full_eval_timesteps": results["eval_timesteps"][-1],
